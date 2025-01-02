@@ -11,6 +11,7 @@ This script allows you to switch between different versions of PHP for your Apac
 - PHP 8.1
 - PHP 8.2
 - PHP 8.3
+- PHP 8.4
 
 ## Prerequisites
 
@@ -28,7 +29,9 @@ This script allows you to switch between different versions of PHP for your Apac
      ├── php8.0/
      ├── php8.1/
      ├── php8.2/
-     └── php8.3/
+     ├── php8.3/
+     └── php8.4
+     
      ```
    - Ensure that each PHP version folder contains the appropriate `php.ini` files and the SAPI DLL files (`php7apache2_4.dll` for PHP 7 and `php8apache2_4.dll` for PHP 8).
 
