@@ -47,13 +47,20 @@ if not exist "%PHP_PATH%\%SAPI_DLL%" (
     goto :end
 )
 
-:: Update the system PATH for CLI (current session)
-echo Updating PATH for CLI...
-set "PATH=%PHP_PATH%;%PATH%"
-setx PATH "%PHP_PATH%;%PATH%" /M
+:: Replace forward slashes with backslashes in PHP_PATH for system PATH
+set "PHP_PATH_BACKSLASH=%PHP_PATH:/=\%"
+
+:: Check if PHP_PATH_BACKSLASH is already in PATH
+echo %PATH% | find /I "%PHP_PATH_BACKSLASH%" >nul
 if errorlevel 1 (
-    echo Failed to update system PATH. Ensure you have administrative privileges.
-    goto :end
+    echo Updating system PATH to include PHP path...
+    setx PATH "%PHP_PATH_BACKSLASH%;%PATH%" /M
+    if errorlevel 1 (
+        echo Failed to update system PATH. Ensure you have administrative privileges.
+        goto :end
+    )
+) else (
+    echo PHP path is already in the system PATH.
 )
 
 :: Update the Apache configuration to use the specified PHP version
